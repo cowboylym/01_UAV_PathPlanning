@@ -54,7 +54,7 @@ docker compose run dev        # 或 docker compose up -d && docker compose exec 
 |---|---|---|
 | `data/points_3d.geojson` | ✅ 已含 | 起止点数据（GeoJSON Point 要素） |
 | `data/SF_Downtown.tif` | ✅ 需自备 | DEM 地形（旧金山城区，GeoTIFF） |
-| `data/SF_Downtown_sdf.mhd` + `.raw` | 可选 | ITK 格式 ESDF 缓存（约 6.9 GB）；**缺失时程序首次运行会基于 DEM 自动构建并保存**，生成后可复用 |
+| `data/SF_Downtown_sdf.mhd` + `.raw` | 可选 | ITK 格式 ESDF 缓存；**缺失时程序首次运行会基于 DEM 自动构建并保存**，生成后可复用 |
 
 > 注意：`src/main.cpp` 中 DEM / ESDF 路径为硬编码默认值（第 698、719、757 行），指向容器内 `/workspace/01_uav_path_planning/data/`。非容器环境运行请修改默认值，或按相同目录结构组织数据。
 
