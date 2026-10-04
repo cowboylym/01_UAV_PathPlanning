@@ -60,7 +60,7 @@ docker compose run dev        # 或 docker compose up -d && docker compose exec 
 **数据下载**：`SF_Downtown.tif` 与 `DOM.tif` 已发布至 Zenodo，下载后放入 `data/` 目录即可：
 
 - 数据集：*High-Resolution Orthoimagery and Digital Surface Model of Downtown San Francisco for UAV Path Planning*
-- 地址：<https://zenodo.org/records/23130253>（DOI: `10.5281/zenodo.23130253`）
+- 地址：<https://doi.org/10.5281/zenodo.23130253>（DOI: `10.5281/zenodo.23130253`）
 - 数据来源：旧金山公开机载 LiDAR 表面产品（2010 年 USGS/NOAA San Francisco Bay LiDAR 项目）；DSM 由 2 m 分辨率表面栅格按正射影像范围裁剪生成；坐标系 EPSG:7131（NAD83(2011) / San Francisco CS13），覆盖约 2.07 km × 2.06 km（≈ 4.3 km²）市区
 
 > 注意：`src/main.cpp` 中 DEM / ESDF 路径为硬编码默认值（第 698、719、757 行），指向容器内 `/workspace/01_uav_path_planning/data/`。非容器环境运行请修改默认值，或按相同目录结构组织数据。
