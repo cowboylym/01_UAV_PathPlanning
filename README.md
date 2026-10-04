@@ -55,9 +55,8 @@ docker compose run dev        # 或 docker compose up -d && docker compose exec 
 | `data/points_3d.geojson` | ✅ 已含 | 起止点数据（GeoJSON Point 要素） |
 | `data/SF_Downtown.tif` | ✅ 需自备 | DEM 地形（旧金山城区，GeoTIFF） |
 | `data/SF_Downtown_sdf.mhd` + `.raw` | 可选 | ITK 格式 ESDF 缓存（约 6.9 GB）；**缺失时程序首次运行会基于 DEM 自动构建并保存**，生成后可复用 |
-| `data/interpolated_wind_20260102_1800_2m.nc` | 可选 | 三维风场（仅 `--wind` 风场代价实验需要） |
 
-> 注意：`src/main.cpp` 中 DEM / ESDF / 风场路径为硬编码默认值（第 542、698、719、757 行），指向容器内 `/workspace/01_uav_path_planning/data/`。非容器环境运行请修改默认值，或按相同目录结构组织数据。
+> 注意：`src/main.cpp` 中 DEM / ESDF 路径为硬编码默认值（第 698、719、757 行），指向容器内 `/workspace/01_uav_path_planning/data/`。非容器环境运行请修改默认值，或按相同目录结构组织数据。
 
 ## 4. 编译
 
@@ -97,9 +96,6 @@ cmake --build build --target uav_planner -j$(nproc)
 | `--rrt-runs <n>` | 10 | RRT* 随机重复次数（取路径长度中位数者为代表） |
 | `--rrt-seed <n>` | 42 | RRT* 基础种子（第 k 次运行用 seed+k） |
 | `--rrt-iters <n>` | 150 | RRT* 迭代次数 |
-| `--wind` | 关闭 | 启用风场代价（节能规划），产物输出到 `data/exp_wind/` |
-| `--wind-nc <path>` | data/interpolated_wind_20260102_1800_2m.nc | 风场文件路径 |
-| `--lambda-w <val>` | 0.05 | 顶风惩罚系数 |
 | `--planner-label <label>` | — | 单算法实验的 CSV 标签 |
 | `--high-curvature-threshold <deg/m>` | — | 高曲率阈值（统计指标） |
 | `--export-fmm-3d` | 关闭 | 导出完整 FMM 三维到达时间场 |
@@ -179,8 +175,6 @@ W_KAPPA_VALUES="0.05 0.1 0.3" sh scripts/run_w_kappa_scan.sh   # 自定义扫描
 ├── run_compare4.sh         # 主对比实验入口（等价于 scripts/ 中调用）
 ├── src/
 │   ├── main.cpp            # 主程序：ESDF 加载/构建 + 四算法运行 + 指标输出
-│   ├── wind_field.hpp      # 三维风场插值
-│   ├── interpWind3D.py     # 风场 nc 预处理
 │   ├── analyze_compare4.py # compare4 统计分析与图表
 │   ├── vis*.py             # 各类可视化脚本
 │   └── ...
