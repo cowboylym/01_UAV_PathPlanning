@@ -1,0 +1,25 @@
+# 构建产物
+build/
+build-*/
+cmake-build-*/
+*.o
+*.a
+*.so
+
+# Python
+__pycache__/
+*.pyc
+
+# 大体积数据文件（受 GitHub 文件大小限制，不上传）
+# 起止点数据 data/points_3d.geojson 保留，其余数据通过 ! 规则排除
+data/*
+!data/points_3d.geojson
+
+# 论文投稿目录（非实验代码）
+投稿/
+
+# IDE / 系统文件
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

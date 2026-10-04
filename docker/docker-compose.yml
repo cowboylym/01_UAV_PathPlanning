@@ -1,0 +1,24 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BUILDKIT_INLINE_CACHE=1
+    image: my-vcpkg-dev:latest
+    container_name: vcpkg-dev
+    hostname: vcpkg-dev
+    stdin_open: true
+    tty: true
+    volumes:
+      - ../workspace:/workspace          # 挂载项目源码（注意相对路径）
+      - vcpkg-cache:/opt/vcpkg-cache     # 挂载 vcpkg 缓存卷
+    environment:
+      - VCPKG_BINARY_SOURCES=clear;files,/opt/vcpkg-cache,readwrite
+      - VCPKG_FEATURE_FLAGS=versions,manifests
+    working_dir: /workspace
+
+# ！！！重点：这个 volumes 必须与 services 同级，不能缩进！！！
+volumes:
+  vcpkg-cache:
+    # 如果不加任何配置，Docker 会自动创建一个匿名卷并持久化数据
